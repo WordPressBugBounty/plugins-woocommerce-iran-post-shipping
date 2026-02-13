@@ -5,15 +5,13 @@
  * @package Iran_Post_Shipping
  */
 
-declare(strict_types=1);
-
 namespace IranPostShipping;
 
 /**
  * The WC_Shipping_COD class is a subclass of WC_Shipping_Method.
  */
 final class WC_Shipping_COD extends \WC_Shipping_Method {
-		
+
 	/**
 	 * Constructor for shipping class
 	 *

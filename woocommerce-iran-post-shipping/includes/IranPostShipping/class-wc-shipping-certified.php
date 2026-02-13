@@ -5,15 +5,13 @@
  * @package Iran_Post_Shipping
  */
 
-declare(strict_types=1);
-
 namespace IranPostShipping;
 
 /**
  * The WC_Shipping_Certified class is a subclass of WC_Shipping_Method.
  */
 final class WC_Shipping_Certified extends \WC_Shipping_Method {
-		
+
 	/**
 	 * Constructor for shipping class
 	 *
@@ -27,7 +25,7 @@ final class WC_Shipping_Certified extends \WC_Shipping_Method {
 		// Description shown in admin
 		$this->method_description = __(
 			'<h3>Iran Certified Post Shipping Method for WooCommerce</h3>
-			<p style="text-align: justify">This method calculates the postage amount based on the 1402 postal rates (latest current calculation).</p>
+			<p style="text-align: justify">This method calculates the postage amount based on postal rates (latest current calculation).</p>
 			<p style="text-align: justify"><strong>Calculation Method:</strong> Based on the postal rate and considering weight, insurance amount, postage tax, and distance from origin to destination based on the location of two provinces relative to each other. It\'s worth mentioning that the calculated amount is automatically converted to the currency unit in Iran and the weight unit set in your WooCommerce settings.</p>
 			<p style="text-align: justify">
 				<strong>Important Notes:</strong>
@@ -353,7 +351,7 @@ final class WC_Shipping_Certified extends \WC_Shipping_Method {
 			$this->enabled = 'no';
 			return;
 		}
-		
+
 		$package_cost = $package['contents_cost'];
 		// Convert current currency to rial
 		if ( 'IRT' === $this->current_currency ) {
@@ -366,34 +364,24 @@ final class WC_Shipping_Certified extends \WC_Shipping_Method {
 		if ( '' === $this->free_for_price || $package_cost < $this->free_for_price ) {
 			$rate_price = array();
 			// Iran Post Prices (prices are in Rial)
-			$rate_price['500']['in']      = 36800;
-			$rate_price['500']['beside']  = 49000;
-			$rate_price['500']['out']     = 53000;
-			$rate_price['1000']['in']     = 48300;
-			$rate_price['1000']['beside'] = 67600;
-			$rate_price['1000']['out']    = 72800;
-			$rate_price['2000']['in']     = 69000;
-			$rate_price['2000']['beside'] = 88000;
-			$rate_price['2000']['out']    = 95000;
-			$rate_price['9999']['in']     = 25800;
-			$rate_price['9999']['beside'] = 32000;
-			$rate_price['9999']['out']    = 35000;
-			
+			$rate_price['1000']['in']     = 507000;
+			$rate_price['1000']['beside'] = 650000;
+			$rate_price['1000']['out']    = 828800;
+			$rate_price['9999']['in']     = 900000;
+			$rate_price['9999']['beside'] = 100000;
+			$rate_price['9999']['out']    = 115440;
+
 			// insurance
 			$insurance = 8000;
-			
+
 			// post tax percent (#%)
 			// 9%
 			$post_tax = 9;
-			
+
 			// Detect the weight plan
-			if ( $cart_weight <= 500 ) {
-				$weight_indicator = '500';
-			} elseif ( $cart_weight > 500 && $cart_weight <= 1000 ) {
+			if ( $cart_weight <= 1000 ) {
 				$weight_indicator = '1000';
-			} elseif ( $cart_weight > 1000 && $cart_weight <= 2000 ) {
-				$weight_indicator = '2000';
-			} elseif ( $cart_weight > 2000 ) {
+			} elseif ( $cart_weight > 1000 ) {
 				$weight_indicator = '9999';
 			}
 
@@ -408,14 +396,14 @@ final class WC_Shipping_Certified extends \WC_Shipping_Method {
 
 			// if states are beside or are same or not beside each other
 			$checked_state = $this->check_states_beside( $this->source_state, $this->destination_state );
-			
+
 			// calculate
 			if ( '9999' !== $weight_indicator ) {
-				// Is less than 2000 grams
+				// Is less than 1000 grams
 				$shipping_total = $rate_price[ $weight_indicator ][ $checked_state ];
 			} elseif ( '9999' === $weight_indicator ) {
-				// Is more than 2000 grams
-				$shipping_total = $rate_price['2000'][ $checked_state ] + ( $rate_price['9999'][ $checked_state ] * ceil( ( $cart_weight - 2000 ) / 1000 ) );
+				// Is more than 1000 grams
+				$shipping_total = $rate_price['1000'][ $checked_state ] + ( $rate_price['9999'][ $checked_state ] * ceil( ( $cart_weight - 1000 ) / 1000 ) );
 			}
 
 			// invalid post code price
@@ -452,13 +440,13 @@ final class WC_Shipping_Certified extends \WC_Shipping_Method {
 
 			// insurance
 			$shipping_total += $insurance;
-			
+
 			// post tax
 			$shipping_total += ceil( $shipping_total * $post_tax / 100 );
 
 			// round to up for amounts fewer than 1000 rials
 			$shipping_total = ( ceil( $shipping_total / 1000 ) ) * 1000;
-			
+
 			$shipping_total  += ceil( $shipping_total * $this->extra_cost_percent / 100 );
 			$this->extra_cost = intval( $this->extra_cost );
 			$shipping_total  += $this->extra_cost;
@@ -470,7 +458,7 @@ final class WC_Shipping_Certified extends \WC_Shipping_Method {
 				$shipping_total = ceil( $shipping_total / 10000 );
 			}
 		}//end if
-		
+
 		// Register the rate
 		$rate = array(
 			'id'       => $this->id,

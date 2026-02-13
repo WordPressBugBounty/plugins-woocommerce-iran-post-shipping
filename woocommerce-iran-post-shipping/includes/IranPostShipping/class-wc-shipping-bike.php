@@ -5,8 +5,6 @@
  * @package Iran_Post_Shipping
  */
 
-declare(strict_types=1);
-
 namespace IranPostShipping;
 
 /**

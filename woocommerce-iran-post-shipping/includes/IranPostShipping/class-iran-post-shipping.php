@@ -5,8 +5,6 @@
  * @package Iran_Post_Shipping
  */
 
-declare(strict_types=1);
-
 namespace IranPostShipping;
 
 /**
@@ -16,49 +14,49 @@ final class Iran_Post_Shipping extends \DediData\Singleton {
 
 	/**
 	 * Plugin URL
-	 * 
+	 *
 	 * @var string $plugin_url
 	 */
 	protected $plugin_url;
 
 	/**
 	 * Plugin Folder
-	 * 
+	 *
 	 * @var string $plugin_folder
 	 */
 	protected $plugin_folder;
 
 	/**
 	 * Plugin Name
-	 * 
+	 *
 	 * @var string $plugin_name
 	 */
 	protected $plugin_name;
 
 	/**
 	 * Plugin Version
-	 * 
+	 *
 	 * @var string $plugin_version
 	 */
 	protected $plugin_version;
-	
+
 	/**
 	 * Plugin Slug
-	 * 
+	 *
 	 * @var string $plugin_slug
 	 */
 	protected $plugin_slug;
 
 	/**
 	 * Plugin File
-	 * 
+	 *
 	 * @var string $plugin_file
 	 */
 	protected $plugin_file;
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param mixed $plugin_file Plugin File Name.
 	 * @see https://developer.wordpress.org/reference/functions/register_activation_hook
 	 * @see https://developer.wordpress.org/reference/functions/register_deactivation_hook
@@ -90,7 +88,7 @@ final class Iran_Post_Shipping extends \DediData\Singleton {
 	/**
 	 * The function is used to load frontend scripts and styles in a WordPress plugin, with support for
 	 * RTL (right-to-left) languages.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function load_frontend_scripts() {
@@ -110,7 +108,7 @@ final class Iran_Post_Shipping extends \DediData\Singleton {
 
 	/**
 	 * Styles for Admin
-	 * 
+	 *
 	 * @return void
 	 */
 	public function load_admin_scripts() {
@@ -130,7 +128,7 @@ final class Iran_Post_Shipping extends \DediData\Singleton {
 
 	/**
 	 * Activate the plugin
-	 * 
+	 *
 	 * @return void
 	 * @see https://developer.wordpress.org/reference/functions/add_option
 	 */
@@ -202,7 +200,7 @@ final class Iran_Post_Shipping extends \DediData\Singleton {
 
 	/**
 	 * Set Plugin Info
-	 * 
+	 *
 	 * @return void
 	 */
 	private function set_plugin_info() {
@@ -222,7 +220,7 @@ final class Iran_Post_Shipping extends \DediData\Singleton {
 
 	/**
 	 * The function "run" is a placeholder function in PHP with no code inside.
-	 * 
+	 *
 	 * @return void
 	 */
 	private function run() {
@@ -231,7 +229,7 @@ final class Iran_Post_Shipping extends \DediData\Singleton {
 
 	/**
 	 * The admin function includes the options.php file and registers the admin menu.
-	 * 
+	 *
 	 * @return void
 	 * @SuppressWarnings(PHPMD.StaticAccess)
 	 */
